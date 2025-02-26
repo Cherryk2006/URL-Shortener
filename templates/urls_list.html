@@ -16,13 +16,22 @@
             <tr>
                 <th>Original URL</th>
                 <th>Short URL</th>
+                <th>Clicks</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody id="urlTableBody">
-            {% for key, value in urls.items() %}
+            {% for url in urls %}
             <tr>
-                <td><a href="{{ value }}" target="_blank">{{ value }}</a></td>
-                <td><a href="{{ '/' + key }}" target="_blank">{{ key }}</a></td>
+                <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
+                <td><a href="{{ '/' + url.short_url }}" target="_blank">{{ url.short_url }}</a></td>
+                <td>{{ url.clicks }}</td>
+                <td>
+                    <a class="btn btn-primary" href="/{{ url.short_url }}/edit">Edit</a>
+                    <form action="/{{ url.short_url }}/delete" method="post" style="display: inline-block">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
